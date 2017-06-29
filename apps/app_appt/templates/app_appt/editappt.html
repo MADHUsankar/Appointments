@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <title>Update Appointment</title>
+                 {% load staticfiles %}
+            <link rel="stylesheet" href="{% static 'app_appt/style/style.css' %}">
+        
+   
+    </head>
+    <body>
+         <div id ="error" >
+                {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+             
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+         </div>
+        <p>
+      <h1>Hello {{name}}!</h1>
+      <a href = {% url 'appointments:logout'%}>Logout</a>
+      <a href = {% url 'appointments:dashboard'%}>dashboard</a>
+             <form action="{% url 'appointments:editappt' appt.id%}" method ="post">
+                {% csrf_token %}
+                <p>
+                <label for="apptdate">Date:</label>
+                <input type="Date" id ="apptdate" name="apptdate" value= {{appt.apptdate}}>
+                </p>
+                <p>
+                <label for="appttime">Time:</label>
+                <input type="time" id ="appttime" name="appttime" value = {{appt.appttime}}>
+                </p>
+                <p>
+                <label for="tasks">Tasks:</label>
+                <input type="text" id ="tasks" name="tasks" value = {{appt.Tasks}}>
+                </p>
+                <p>
+                Status : <select name="apptstatus">
+                <option selected  >{{appt.apptstatus}}</option>
+                <option value="done">done</option>
+                <option value="pending">pending</option>
+                <option value="missed">missed</option>
+
+        </select>
+ 
+                <p><input id="submits" type="submit" value="Update"></p>
+             </form>
